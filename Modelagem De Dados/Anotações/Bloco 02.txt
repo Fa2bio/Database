@@ -1,0 +1,120 @@
+Um banco de dados é considerado normalizado se nele foram aplicadas as regras destas três formas normais
+> Primeira Forma Normal (1FN)
+
+Uma entidade estará na primeira forma normal (IFN) se todos os campos forem atômicos(simples) e não multivalorado (com múltiplos valores)
+
+Ex: Cadastro de cliente
+
+ --------------  -------------- ---------------------
+| Código_cliente | Nome | Telefone | Endereço 	    |
+ --------------  -------------- ---------------------
+| C001		 | José | 0000-1111|Rua Seis, 85,   |
+|  		 |      | 1111-2222|Morumbi, Sp     |
+ --------------  -------------- ------------------
+| C002		 | José | 3333-4444|Rua sete, 85, RJ|
+| 		 | Maria| 5555-6666|Morumbi, Sp     |
+ --------------  -------------- ---------------------
+
+Note que temos dois problemas que estão em desacordo com a 1FN:
+1 - O campo telefone é multivalorado;
+2 - O campo endereço é multivalorado;
+
+- Aplicando 1FN
+
+ --------------  -------------- -----------------------                         -----------------------------
+| Código_cliente | Nome | Rua 	       | Bairro | Cep |                         | Código_cliente | Telefone |
+ --------------  -------------- -----------------------                         -----------------------------
+| C001		 | José | Rua Seis, 85 | Morumbi| 123 |                         | C001           | 0000-1111| 
+|  		 |      |              |        |     |                         | C001           | 1111-2222|
+ --------------  -------------- -----------------------                         | C002           | 3333-4444| 
+| C002		 | Maria|Rua sete, 80  |Morumbi | 456 |                         | C002           | 5555-6666|         
+| 		 |      |              |        |     |                         -----------------------------
+ --------------  -------------- -----------------------              
+
+Quais os problemas de uma tabela não normalizada com a 1FN ?
+A primeira forma normal tenta resolver um dos maiores problemas de banco de dados que é a repetição (redundância de dados) e a 
+desorganização  deles. 
+
+Toda tabela precisa obrigatoriamente ser normalizada com a 1FN ?
+Não. A normalização é um processo corretivo que deve ser aplicado em casos específicos onde o problema for identificado. Tudo irá
+depender de como a análise dos dados foi feita.
+
+------------------------------------------------------------------------------------------------------------------------
+
+> Segunda Forma Normal (2FN)
+
+Uma entidade estará na 2FN se ela já se encontra na 1FN e todos os atributos não chave forem totalmente dependentes da chave primária.
+
+Ex: Tabelas Pedidos
+
+----------------------------------------------------------------------------
+| N_pedido | Cod_Produto | Produto         | Quant | Valor_Unit | Subtotal |
+----------------------------------------------------------------------------
+| 1005	   |    1-934    | Impressora laser|   5   | 1.500,00   | 7.500,00 |
+| 1006	   |    1-956    | Impressora desje|   3   | 350,00     | 1.500,00 |
+| 1007	   |    1-923    | Impressora matri|   1   | 190,00     | 190,00   |
+| 1008	   |    1-908    | Impressora mobil|   6   | 980,00     | 5.880,00 |
+----------------------------------------------------------------------------
+
+Note que temos um problema que esta em desacordo com a 2FN:
+1 - O campo Produto não é totalmente dependente da chave primária, mas sim da chave Cod_Produto;
+2 - O campo endereço é multivalorado;
+
+- Aplicando 2FN
+
+---------------------------------------------                    
+| N_pedido | Cod_Produto | Quant | Subtotal |                       | Cod_Produto |      Produto       | Valor_Unit |
+---------------------------------------------                       |   1-934     |Impressora Laser    | 1.500,00   |
+| 1005	   |    1-934    |   5   | 7.500,00 |                       |   1-956     |Impressora Desjet   | 350,00     |
+| 1006	   |    1-956    |   3   | 1.500,00 |                       |   1-923     |Impressora Matricial| 190,00     |
+| 1007	   |    1-923    |   1   | 190,00   |                       |   1-908     |Impressora Mobile   | 980,00     |
+| 1008	   |    1-908    |   6   | 5.880,00 |
+---------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------
+
+> Terceira Forma Normal (3FN)
+
+Uma tabela estará na 3FN se ela estiver na 2FN e se nenhuma coluna não-chave depender de outra colula não-chave. Ou seja, na 3FN temos
+simplesmente que eliminar os campos que podem ser obtidos pela equação de outros campos da mesma tabela.
+
+Ex: Tabelas Pedidos
+
+---------------------------------------------                   
+| N_pedido | Cod_Produto | Quant | Subtotal |           | Cod_Produto |      Produto       | Valor_Unit |
+---------------------------------------------           |   1-934     |Impressora Laser    | 1.500,00   |
+| 1005	   |    1-934    |   5   | 7.500,00 |           |   1-956     |Impressora Desjet   | 350,00     |
+| 1006	   |    1-956    |   3   | 1.500,00 |           |   1-923     |Impressora Matricial| 190,00     |
+| 1007	   |    1-923    |   1   | 190,00   |           |   1-908     |Impressora Mobile   | 980,00     |
+| 1008	   |    1-908    |   6   | 5.880,00 |
+---------------------------------------------
+
+- Aplicando 3FN
+
+----------------------------------        
+| N_pedido | Cod_Produto | Quant | 
+----------------------------------
+| 1005	   |    1-934    |   5   |
+| 1006	   |    1-956    |   3   |
+| 1007	   |    1-923    |   1   |
+| 1008	   |    1-908    |   6   |
+----------------------------------
+
+Após aplicar as 3 Formas Normais, temos uma tabela normalizada e temos o nosso Modelo de Entidade e Relacionamento (Modelo Conceitual)
+completo.
+
+------------------------------------------------------------------------------------------------------------------------
+
+MER - Modelo Entidade-Relacionamento (MySQL Workbrainch)
+
+- Cria um modelo (schema);
+- Da nome ao modelo;
+- Salva o modelo;
+- Cria tabelas (enidades);
+- Cria campos nas tabelas (atributos);
+- Seleciona os tipos de dados para os atributos;
+- Define chave primária (primary key, pk);
+- Define chave estrangeira (foreign key, fk, relacionamentos);
+- Exporta o diagrama (imagem ou pdf).
+
+

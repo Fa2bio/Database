@@ -1,0 +1,167 @@
+> Introdução a Banco de Dados
+
+- Dado e informação
+
+Dado -> Elemento bruto geralmente proveniente de uma entrada do usuário ou de outros sistemas.
+Informação -> Elemento processado (lapidado) constituído de dados.
+
+
+		Dado x Informação
+		/	    \
+
+1200 100		Relatório Mensal de Vendas - Região Oeste
+Oeste Ricardo Alves	Vendedor: Ricardo Alves
+79154 Sapatos		Código do Emprego: 79154
+			Item 	Quantidade Preço Unitario
+			Sapatos  1200		 100
+
+- Banco de Dados Relacional (SQL) x Não Relacional (NoSQL)
+
+SQL (Structure Query Language) x NoSQL (Not Only SQL)
+
+- Banco de Dados Relacional
+
+Conceito criado por Edgar Frank, sendo descrito no artigo "Relational Model of Data for Large Shared Data Banks".
+Baseado no Modelo Relacional, onde os dados estão guardados entre tabelas que por sua vez podem ou não estar relacionadas.
+
+Pontos Fortes: Sistemas Gerenciadores de Bancos de Dados, oferecem aos usuários processos de validação, verificação e garantias de
+integridade dos dados. Além disso, oferem controle de concorrencia, recuperação de falhas e segurança, controle de transação, otimização
+de consultas, dentre outros.
+
+Pontos Fracos: Dificuldade em conciliar o modelo relacional com a demanda por escalabilidade cada vez mais frequente.
+Dificuldade em se organizar os dados em um sistema distribuído trabalhando com particionamento de dados.
+
+- Banco de Dados Não Relacional
+
+O termo NoSQL surgiu em 1998, a partir de uma solução de banco de dados que não oferecia uma interface SQL, mas ainda assim estava baseado
+inicialmente na arquitetura relacional. Posteriormente, o termo passou a representar soluções que promoviam uma alternativa ao Modelo
+Relacional, tornando-se uma abreviação de Not Only SQL. O grande diferencial aqui é a performace, pois não utiliza um modelo estruturado
+em tabelas, consegue-se trabalhar com os dados de forma muito mais rápida.
+
+Caracteristicas em comum: Como são livres do modelo relacional, promovem alta disponibilidade e maior escalabilidade.
+Algumas implementações oferecem:
+
+- Particionamento e a replicação de dados;
+- Sistemas baseados em armazenamento de chave/valor;
+- Sistemas orientados a documentos;
+- Sistemas orientados a doluna;
+- Sistemas baseados em grafos.
+
+- Arquitetura Cliente-Servidor
+
+User 1 ------> Organisation intranet ------> Web Server ------> Database
+(Cliente)					(Servidor)
+
+------------------------------------------------------------------------------------------------------------------------
+
+> Modelagem de Dados
+
+Um modelo de dados não informa quais dados estão armazenados em um banco de dados, mas sim apenas quais e que tipos de dados contém
+
+- Modelo Conceitual
+
+Este é o modelo de mais alto nível, ou seja, que está mais próximo dos usuários. Este modelo é desenvolvido com alto nivel de abstração,
+a partir dos requisitos do sistema, extraídos na fase de levantamento de requisitos pelos analistas de sistemas. Esse modelo pode ser
+elaborado de forma textual ou por meio de dois diagramas: Diagrama de Entidade e Relacionamento e/ou Diagrama de Classes (Diagramas UML)
+
+DER - Diagrama de Entidade e Relacionamento / Modelo De Entidade e Relacionamento
+Diagrama de Classes - Ver exemplos de UML
+
+Clientes - Dados Necessários: nome, tipo de pessoa, endereço, email, etc
+Pedido - Dados Necessários: código do produto, quantidade, código do cliente, etc
+
+- Modelo Lógico
+
+Este modelo descreve como os dados serão armazenados no banco de dados e também seus relacionamentos. Neste modelo, ainda pode ser definida
+a tecnlogia que será utilizada para armazenagem dos dados: Banco SQL ou NoSQL
+
+
+| preço |				| descrição |
+    |					      |
+| Produdo | ----- < É do Tipo > ----- | Tipo de produto | 	<- Exemplo de um banco de dados Relacional
+    |    |                                    |			(Relacionamento entre Produto e Tipo de produto)
+|código| |				   |código|
+     	 |
+     |descrição|
+
+
+TipoDeProduto (CodTipoProd, DescrTipoProd)
+Produto (CodProd, DescrProd, PrecoProd, CodTipoProd)  CodTipoProd referencia TipoDeProduto
+
+- Modelo físico
+
+Também chamado de Modelo de Implementação, descreve, por meio de alguma linguagem, como será feito a armazenagem do banco. Neste nível se
+escolhe qual sistema gerenciador de banco de dados será utilizado, levando em consideração o modelo lógico adotado.
+
+Ex: cadastro de paciente
+
+ --------------  -------------- ------------------
+| Nome do Campo | Tipo de Dado | Tamanho Do Campo |
+ --------------  -------------- ------------------
+| Nome do pacie | Numérico     | 5 dígitos        |
+| Endereço      | Alfanumérico | 50 caracteres    |
+| Data nascimen | Data         | 10 caracteres    |
+ --------------  -------------- ------------------
+
+CREATE TABLE 'turma' (
+ 'idturma' INTEGER(4) NOT NULL AUTO_INCREMENT,
+ 'idProfessor' INTEGER(4) NOT NULL,
+ PRIMARY KEY ('idturma'),
+ FOREIGN KEY ('idProfessor') REFERENCES professor(idProfessor),
+ UNIQUE KEY 'idturma' ('idturma')
+)
+
+CREATE TABLE 'professor' (
+ 'idProfessor' INTEGER(4) NOT NULL AUTO_INCREMENT,
+ 'nome' CHAR(80) COLLATE NOT NULL DEFAULT '',
+ PRIMARY KEY ('idProfessor'),
+ UNIQUE KEY 'idProfessor' ('idProfessor')
+)
+
+- Outros conceitos essesnciais
+
+> Entidade: Objeto ou evento do mundo real sobre o qual desejamos manter registros em um banco de dados.
+Ex: Aluno, Professor, Paciente, Carro, etc
+
+> Atributo: Propriedade ou característica que descreve uma entidade. São as colunas(campos) das tabelas que irão armazenar os dados.
+Entidade Produto: código, descrição e preço
+Entidade Tipo de Produto: código, descrição
+
+> Chave: Também conhecido como chave primária, primary key ou pk, é um campo que deve possuir valor único(sem repetição) em todo o conjunto
+de dados da entidade. Este atributo é usado para identificar unicamente um registro da tabela.
+Entidade Produto: (código), descrição e preço
+Entidade Tipo de Produto: (código), descrição
+
+> Chave Estrangeira: Também conhecido como foreign ky ou fk, é um atributo presente em uma entidade que indica um relacionamento e representa
+a chave primária de uma outra entidade. 
+Entidade Produto: código, (código do tipo de produto), descrição e preço
+Entidade Tipo de Produto: (código), descrição
+
+> Relacionamentos: Geralemente as entidades nunca estão sozinhas; normalmente estão associadas com outras entidades. Reconhecer e registrar
+os relacionamentos entre entidades fornece uma descrição muito mais rica do modelo. Um relacionamento pode acontecer entre uma, duas, ou
+várias entidades.
+(Relacionamento entre Produto e Tipo de produto)
+
+> Grau de Relacionamento: Indica a quantidade de entidades ligadas a um relacionamento. 
+Os principais graus de relacionamento são: Unário, Binário e Ternário. 
+
+- Relacionamento Unário: Chamado tamebm de grau 1 - Uma entidade se relaciona com ela mesma
+- Relacionamento Binário: Chamado tamebm de grau 2 - Uma entidade se relaciona com outra entidade. É o tipo mais comum de relacionamento
+- Relacionamento Ternário: Chamado tamebm de grau 3 - Três entidades estão relacionadas por um mesmo relacionamento
+
+> Cardinalidade (máxima): Define a quantidade máxima de ocorrências de uma entidade que poderá estar associada a outra entidade
+
+- Relacionamento Binário One-to-One (Um-para-Um) (1:1): Indica que uma ocorrência da entidade A pode se relacionar exclusivamente com uma ocorrência
+da entidaed B e vice versa.
+
+- Relacionamento Binário One-to-Many (Um-para-Muitos) (1:n): Indica que uma ocorrência da entidade A pode se relacionar com várias ocorrências
+da entidaed B, porém o inverso não é permitido.
+
+- Relacionamento Binário Many-to-Many (Muito-para-Muitos) (n:m): Indica que uma ocorrência da entidade A pode se relacionar com várias ocorrências
+da entidaed B, e vice versa. Na prática, o relacionamento n:m é dividido em duas relações 1:n e uma nova entidade é criada para representar o
+relacionamento.
+
+> Cardinalidade (minima): Define a quantidade minima de ocorrências de uma entidade que precisa estar associada a outra entidade (em caráter obrigatório)
+São consideradas como cardinalidade mínima: 0 e 1
+
+------------------------------------------------------------------------------------------------------------------------
