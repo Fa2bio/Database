@@ -1,0 +1,43 @@
+> DDL - Data Definition Language
+
+No subgrupo DDL temos 3 comando SQL, o CREATE, o ALTER e o DROP.
+
+- CREATE: Usado para criar um banco de dados, tabela e outros objetos em um banco de dados;
+- ALTER: Usado para alterar a estrutura de tabelas ou outro objeto em um banco de dados;
+- DROP: Usado para apagar bancos de dados, tabela e outros objetos;
+
+* CREATE
+
+- CREATE DATABASE financeiro;
+Neste caso, estamos criando um banco de dados chamado 'financeiro';
+
+- CREATE TABLE tipos_produto (codigo INT PRIMARY KEY, descricao VARCHAR(50));
+Neste caso, criamos uma tabela no banco de dados 'financeiro' criado anteriormente e uma tabela ficaria disponível para que possamos
+inserir e manipular os dados;
+
+ #Tipo de Produto 	
+------------------------
+| Código |  Descrição  |
+------------------------
+
+* ALTER
+
+- ALTER TABLE tipos_produto ADD peso DECIMAL(8,2);
+Neste caso, alteramos a estrutura da tabela 'tipos_produto' acrescentando um novo champo chamado 'peso' do tipo decimal com até 8 digitos
+antes da vírgula e 2 dígitos após a vírgula;
+
+ #Tipo de Produto 	
+-------------------------------
+| Código |  Descrição  | Peso |
+-------------------------------
+
+* DROP
+
+- DROP TABLE tipos_produto;
+Neste caso, estamos apagando a tabela 'tipos_produto'. Este comando apaga toda a estrututa e os dados, desde que esta tabela não tenha
+relacionamentos.
+
+- DROP DATABASE financeiro;
+Neste caso, estamos apagando o banco de dados 'financeiro' e qualquer tabela ou dado dentro dele.
+
+-----------------------------------------------------------------------------------------------------------------------------------
