@@ -1,0 +1,19 @@
+> DCL - Data Control Language
+
+No subgrupo DML temos 2 comandos SQL, o GRANT e o REVOKE.
+
+- GRANT: Usado para autorizar um usuário a executar ou setar operações no banco de dados;
+- REVOKE: Usado para remover ou restringir a capacidade de um usuário de executar operações;
+
+* GRANT
+
+- GRANT SELECT ON tipos_produto TO geek;
+Neste caso, estamos dando permissão de consulta na tabela tipos_produto para o usuário 'geek'.
+
+* REVOKE
+
+- REVOKE CREATE TABLE FROM geek;
+Neste caso, estamos dando retirando a permissão de criação de tabelas no banco de dados para o usuário 'geek'.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
