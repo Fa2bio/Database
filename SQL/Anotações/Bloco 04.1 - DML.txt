@@ -1,0 +1,91 @@
+> DML - Data Manipulation Language
+
+No subgrupo DML temos 3 comandos SQL, o INSERT, o UPDATE e o DELETE.
+
+- INSERT: Usado para inserir um registro a uma tabela existente;
+- UPDATE: Usado para alterar valores de dados em um ou mais registros de uma tabela;
+- DELETE: Usado para remover registros de uma tabela
+
+ #Tipo de Produto 			  #Produto
+------------------------                  --------------------------------------------------
+| Código |  Descrição  |                  | Código |  Descrição  |  Preço   | CódigoDoTipo |
+------------------------                  --------------------------------------------------
+|   1    |  Computador |                  |   10   | Desktop     | 1.200,00 |      1       |
+|   2    |  Impressora |                  |   20   | Impr. Laser |  500,00  |      2       |
+------------------------                  --------------------------------------------------
+
+* INSERT
+
+- INSERT INTO tipos_produto (descricao) VALUES ('Notebook');
+Neste caso, estamos inserindo o valor 'Notebook' na tabela 'tipos_produto'. O campo 'codigo' do tipo de produto é chave primária e auto
+incremento, então será inserido automaticamente
+
+ #Tipo de Produto 	
+------------------------
+| Código |  Descrição  |
+------------------------
+|   1    |  Computador |
+|   2    |  Impressora |
+|   3    |  Notebook   |
+------------------------
+
+- INSERT INTO produtos (descricao, preco, codigo_tipo_produto) VALUES ('Notebook', 1200, 1);
+Neste caso, estamos inserindo os valores 'Notebook', '1200' e '1' na tabela 'produtos'. O campo 'codigo' do produto é chave primária e
+auto incremento, então será inserido automaticamente
+
+ #Produto
+--------------------------------------------------
+| Código |  Descrição  |  Preço   | CódigoDoTipo |
+--------------------------------------------------
+|   10   | Desktop     | 1.200,00 |      1       |
+|   20   | Impr. Laser |  500,00  |      2       |
+|   21   | Notebook    | 1.200,00 |      1       |
+--------------------------------------------------
+
+* UPDATE
+
+- UPDATE tipos_produto SET descricao = 'Nobreak' WHERE codigo = 3; 
+Com isso o registro com codigo = 3 será atualizado com o novo valor para o campo 'descricao'
+
+ #Tipo de Produto 	
+------------------------
+| Código |  Descrição  |
+------------------------
+|   1    |  Computador |
+|   2    |  Impressora |
+|   3    |  Nobreak    |
+------------------------
+
+- UPDATE produtos SET descricao = 'Monitor', preco = 2.800 WHERE codigo = 20;
+Com isso, um registro na tabela 'produtos' é atualizado. Note que estamos utilizando o filtro com a cláusula WHERE especificando qual
+registro queremos atualizar. 
+
+ #Produto
+--------------------------------------------------
+| Código |  Descrição  |  Preço   | CódigoDoTipo |
+--------------------------------------------------
+|   10   | Desktop     | 1.200,00 |      1       |
+|   20   | Monitor     | 2.800,00 |      2       |
+|   21   | Notebook    | 1.200,00 |      1       |
+--------------------------------------------------
+
+OBS: deve-se tomar cuidado com o comando UPDATE, pois caso o comando seja utilizado sem a cláusula WHERE, toda a tabela será atualizada
+fazendo com que os registros fiquem inconsistentes. E caso o banco de dados não tenha backup, os dados serão perdidos definitivamente.
+
+* DELETE
+
+- DELETE FROM tipos_produtos WHERE codigo = 3;
+Com isso, o registro de código = 3 será excluido da tabela 'Tipo de Produto'
+
+ #Tipo de Produto 	
+------------------------
+| Código |  Descrição  |
+------------------------
+|   1    |  Computador |
+|   2    |  Impressora |
+------------------------
+
+OBS: deve-se tomar cuidado com o comando DELETE, pois caso o comando seja utilizado sem a cláusula WHERE, toda a tabela será excluída
+fazendo com que os registros se percam. E caso o banco de dados não tenha backup, os dados serão perdidos definitivamente.
+
+------------------------------------------------------------------------------------------------------------------------------------------
