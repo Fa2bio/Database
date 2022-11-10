@@ -14,6 +14,8 @@ Cada subgrupo SQL possui comandos próprios de execução e ao executar estes co
 OBS: costumamos escrever os comandos SQL todos em letra maiúscula, o que ajuda a entender melhor nosso código já que o que for referente
 aos comandos SQL estão destacados em maiúsculo e o que for referente aos nossos dados/tabelas e etc estarão em minúsculo.
 
+------------------------------------------------------------------------------------------------------------------------------------------
+
 > DQL - Data Query Language
 
 No subgrupo DQL temos apenas 1 comando SQL, o SELECT.
@@ -50,3 +52,5 @@ Com isso, teríamos como resultado os dados das colunas 'codigo', 'descricao' e 
 
 Com isso, realizamos uma busca especificando os campos que queremos da tabela 'produtos' e adicionando um alias tanto para o nome da
 tabela quanto para o nome dos campos.
+
+------------------------------------------------------------------------------------------------------------------------------------------
