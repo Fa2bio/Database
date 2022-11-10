@@ -1,0 +1,48 @@
+Uma empresa fabricante de picolés deseja armazenar informações acerca de seus negócios. 
+
+============================ Modelo de entidades e Relacionamentos ============================
+
+[1] Os picolés fabricados são divididos em normal (com água) e ao leite. As informações comuns
+armazenadas dos picolés são: sabor, ingredientes, preço e tipo da embalagem.
+
+Entidades:
+
+- Tipos de Picoles (id, nome);
+- Tipo da embalagem (id, nome);
+- Ingredientes (id, nome);
+- Sabor (id, nome);
+- Ingredientes Picole (id, id ingrediente, id picole);
+- Picoles(id, preco, id sabor, id tipo_da_embalagem, id tipo_de_picoles);
+
+OBS: um picolé pode ter vários ingredientes;
+
+------------------------------------------------------------------------------------------------
+
+[2] Especificamente, picolés normais possuem um conjunto de aditivos nutritivos (vitaminas ou sais minerais) cada
+um com nome e fórmula química; e picolés ao leite contêm um conjunto de conservantes, cada um com nome e descrição.
+
+Entidades: 
+- Aditivos Nutritivos (id, nome, fórmula química);
+- Conservantes (id, nome, descricao);
+- Aditivos (id, id aditivo_nutritivo, id picole);
+- Conservantes_picoles (id, id conservante, id picole);
+
+------------------------------------------------------------------------------------------------
+
+[3] Os dois tipos de picolés são vendidos em lotes exclusivos (ou normais, ou ao leite) para os revendedores e cada
+venda gera uma nota fiscal que pode conter um ou vários lotes. As notas fiscais possuem data, valor, número de série
+e descrição.
+
+Entidades:
+- Lotes(id, quantidade, id tipo_picole)
+- Nota fiscal (id, data, valor, numero_de_serie, descricao, id_revendedor)
+- Venda (id, id_lote, id nota_fiscal)
+
+------------------------------------------------------------------------------------------------
+
+[4] Todo revendedor possui uma pessoa de contato para eventuais resoluções de problemas, além disso, armazena-se do
+revendedor o CNPJ e a razão social
+
+Entidades:
+- Revendedor (id, cnpj, razao_social, contato)
+
