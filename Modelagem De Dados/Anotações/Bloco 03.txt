@@ -1,0 +1,52 @@
+> A linguagem SQL se divide em 5 subgrupos.
+
+- DQL (Data Query Language)
+- DML (Data Manipulation Language)
+- DDL (Data Definition Language)
+- DCL (Data Control Language)
+- DTL (Data Transaction Language)
+
+Cada subgrupo SQL possui comandos próprios de execução e ao executar estes comandos sempre temos como resultado duas coisas:
+
+1 - O resultado da execução do comando;
+2 - Uma mensagem de execução que pode ser de sucesso ou de erro.
+
+OBS: costumamos escrever os comandos SQL todos em letra maiúscula, o que ajuda a entender melhor nosso código já que o que for referente
+aos comandos SQL estão destacados em maiúsculo e o que for referente aos nossos dados/tabelas e etc estarão em minúsculo.
+
+> DQL - Data Query Language
+
+No subgrupo DQL temos apenas 1 comando SQL, o SELECT.
+Embora tenha apenas um comando, a DQL é a parte da SQL mais utilizada. O comando SELECT permite ao usuário especificar uma consulta (query)
+como uma descrição do resultado esperado.
+
+ #Tipo de Produto 			  #Produto
+------------------------                  --------------------------------------------------
+| Código |  Descrição  |                  | Código |  Descrição  |  Preço   | CódigoDoTipo |
+------------------------                  --------------------------------------------------
+|   1    |  Computador |                  |   10   | Desktop     | 1.200,00 |      1       |
+|   2    |  Impressora |                  |   20   | Impr. Laser |  500,00  |      2       |
+------------------------                  --------------------------------------------------
+
+- SELECT * FROM tipos_produto;
+
+Com isso, teríamos como resultado as duas linhas da tabela 'tipos_produto' e uma mensagem de sucesso.
+
+- SELECT codigo, descricao FROM tipos_produto;
+
+Com isso, temos como resultado os dados da tabela 'tipos_produto' referente aos campos 'codigo' e 'descricao'
+
+- SELECT * FROM produto;
+
+Com isso, teríamos como resultado as quatro linhas da tabela 'tipos_produto' e uma mensagem de sucesso.
+
+- SELECT codigo, descricao, codigo_tipo FROM produto;
+
+Com isso, teríamos como resultado os dados das colunas 'codigo', 'descricao' e 'codigo_tipo'
+
+* Colocando um alias em nome de tabela e campos
+
+- SELECT p.codigo AS cod, p.descricao AS desc, p.preco AS pre, p.codigo_produto AS ctp FROM produtos AS p;
+
+Com isso, realizamos uma busca especificando os campos que queremos da tabela 'produtos' e adicionando um alias tanto para o nome da
+tabela quanto para o nome dos campos.
