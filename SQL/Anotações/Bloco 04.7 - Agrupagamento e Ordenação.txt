@@ -1,0 +1,107 @@
+* GROUP BY
+
+Utilizamos a cláusula GROUP BY para agrupar elementos do mesmo tipo.
+
+- SELECT t.nome AS Tipo, SUM(p.quantidade) AS 'Quantidade em Estoque' 
+FROM tipos AS t, produtos AS p 
+WHERE t.id = p.id_tipo GROUP BY t.nome
+
+Neste caso, estamos solicitando a quantidade de produtos em estoque, agrupados pelo tipo. Utilizamos a função de agregação SUM() para
+efetuar a soma de cada tipo de produto.
+
+---------------------------------------
+| # | Tipo    | Quantidade em Estoque |
+---------------------------------------
+| 1 | Armário | 50                    |
+| 2 | Celular | 300                   |
+| 3 | Console | 800                   |
+| 4 | Notebook| 200                   |
+| 5 | Refriger| 200                   |
+| 6 | Smartpho| 50                    |
+| 7 | Sofá    | 200                   |
+---------------------------------------
+
+- SELECT f.nome AS Fabricante, SUM(p.quantidade) AS 'Quantidade em Estoque' 
+FROM fabricantes AS f, produtos AS p 
+WHERE f.id = p.id_fabricante GROUP BY f.nome;
+
+Neste caso, estamos solicitando a quantidade de produtos em estoque, agrupados pelo fabricante. Utilizamos a função de agregação SUM()
+para efetuar a soma de cada produto por fabricante.
+
+---------------------------------------
+| # |Fabricate| Quantidade em Estoque |
+---------------------------------------
+| 1 | Apple   | 50                    |
+| 2 | Beline  | 200                   |
+| 3 | CCE     | 450                   |
+| 4 | Dell    | 200                   |
+| 5 | Magno   | 50                    |
+| 6 |Microsoft| 350                   |
+| 7 |Samsung  | 300                   |
+| 8 |Sony     | 200                   |
+---------------------------------------
+
+- SELECT t.nome AS Tipo, f.nome AS Fabricante, SUM(p.quantidade) AS 'Quantidade em Estoque' 
+FROM tipos AS t, fabricantes AS f, produtos AS p 
+WHERE t.id = p.id_tipo AND f.id = p.id_fabricante
+GROUP BY t.nome, f.nome;
+
+Neste caso, estamos solicitando a quantidade de produtos em estoque de acordo com os tipos e fabricantes
+
+----------------------------------------------------
+| # | Tipo    | Fabricante | Quantidade em Estoque |
+----------------------------------------------------
+| 1 | Armário | Magno      | 50                    |
+| 2 | Celular | Samsung    | 300                   |
+| 3 | Console | CCE        | 250                   |
+| 4 | Console | Microsoft  | 350                   |
+| 5 | Console | Sony       | 200                   |
+| 6 | Notebook| Dell       | 200                   |
+| 7 | Refriger| CCE        | 200                   |
+| 8 | Smartpho| Apple      | 50                    |
+| 9 | Sofá    | Beline     | 200                   |
+----------------------------------------------------
+
+- SELECT t.nome AS Tipo, f.nome AS Fabricante, SUM(p.quantidade) AS 'Quantidade em Estoque' 
+FROM tipos AS t, fabricantes AS f, produtos AS p 
+WHERE t.id = p.id_tipo AND f.id = p.id_fabricante
+GROUP BY t.nome, f.nome;
+HAVING SUM(p.quantidade) > 200;
+
+Neste caso, estamos solicitando a quantidade de produtos em estoque de acordo com os tipos e fabricantes onde a quantidade seja maior que
+200 itens em estoque.
+
+----------------------------------------------------
+| # | Tipo    | Fabricante | Quantidade em Estoque |
+----------------------------------------------------
+| 1 | Celular | Samsung    | 300                   |
+| 2 | Console | CCE        | 250                   |
+| 3 | Console | Microsoft  | 350                   |
+----------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+* Order By
+
+A cláusula ORDER BY organiza os dados em ordem alfabética ou numérica. A ordenação pode ser ASC(Ascendente) ou DESC(Descendente). 
+Por padrão, a ordenação é ascendente, ou sejam do menor para o maior.
+
+- SELECT id, nome, id_tipo, id_fabricante, quantidade FROM produtos ORDER BY quantidade ASC;
+
+--------------------------------------------------------------
+| # | id |    nome    | id_tipo | id_fabricante | Quantidade |
+--------------------------------------------------------------
+| 1 | 10 | Sofá       |    5    |    6          | 200        |
+| 2 |  4 | Wii 120Gb  |    1    |    8          | 300        |
+| 3 |  3 | Xbox 360   |    1    |    3          | 350        |
+--------------------------------------------------------------
+
+- SELECT id, nome, id_tipo, id_fabricante, quantidade FROM produtos ORDER BY quantidade DESC;
+
+--------------------------------------------------------------
+| # | id |    nome    | id_tipo | id_fabricante | Quantidade |
+--------------------------------------------------------------
+| 1 |  3 | Xbox 360   |    1    |    3          | 350        |
+| 2 |  4 | Wii 120Gb  |    1    |    8          | 300        |
+| 3 | 10 | Sofá       |    5    |    6          | 200        |
+--------------------------------------------------------------
