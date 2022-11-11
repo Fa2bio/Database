@@ -1,0 +1,226 @@
+> SELECT em multiplas tabelas 
+
+#Tipo de Produto 			  #Produto
+------------------------                  --------------------------------------------------
+| Código |  Descrição  |                  | Código |  Descrição  |  Preço   | CódigoDoTipo |
+------------------------                  --------------------------------------------------
+|   1    |  Computador |                  |   10   | Desktop     | 1.200,00 |      1       |
+|   2    |  Impressora |                  |   20   | Impr. Laser |  500,00  |      2       |
+------------------------                  --------------------------------------------------
+
+SELECT p.codigo AS Código, p.descricao AS Descrição, p.preco AS Preço, tp.descricao AS Tipo
+	FROM produtos AS p, tipos_produto AS tp
+	WHERE p.codigo_tipo_produto = tp.codigo;
+
+--------------------------------------------------
+| Código |  Descrição  |  Preço   |     Tipo     |
+--------------------------------------------------
+|   10   | Desktop     | 1.200,00 |  Computador  |
+|   20   | Impr. Laser |  500,00  |  Impressora  |
+--------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+> Junção de Tabelas
+
+#juncao
+
+#profissoes				  #clientes
+------------------------                  ---------------------------------------------------------------
+|   id   |    cargo    |                  | id |     nome    | data_nascimento | telefone | id_profissao|
+------------------------                  ---------------------------------------------------------------
+|   1    | programador |                  | 1  |João Pereira |  1981-06-15     |1234-5688 |      1      |
+|   2    | Analista    |                  | 2  |Ricardo Perei|  1973-10-10     |2222-5679 |      2      |
+|   3    | Suporte     |                  | 3  |Felipe Olivei|  1987-08-01     |3333-5368 |      3      |
+|   4    | Gerente     |                  | 4  |Mário Perez  |  1991-02-05     |4444-5158 |      1      |
+------------------------                  ---------------------------------------------------------------
+
+* Junção de produto cartesiano
+
+Uma junção entre duas tabelas que origina uma terceira constituída por todos os elementos da primeira tabela combinada com todos os 
+elementos da segunda.
+
+SELECT * FROM profissoes, clientes;
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+* Junção Interna (Inner Join)
+
+Uma junção interna é caracterizada por uma consulta que retorna apenas os dados que atendem às condições de junção, isto é, quais linhas
+de uma tabela se relacionam com as linhas de outras tabelas. Para isso utilizamos a cláusula ON, que é semelhane à cláusula WHERE
+
+SELECT c.id, c.nome, c.data_nascimento, c.telefone, p.cargo
+FROM clientes AS c INNER JOIN profissoes AS p
+ON c.id_profissao = p.id;
+
+---------------------------------------------------------------
+| id |     nome    | data_nascimento | telefone |    cargo    |
+---------------------------------------------------------------
+| 1  |João Pereira |  1981-06-15     |1234-5688 | programador |
+| 2  |Ricardo Perei|  1973-10-10     |2222-5679 |  Analista   |
+| 3  |Felipe Olivei|  1987-08-01     |3333-5368 |  Suporte    |
+| 4  |Mário Perez  |  1991-02-05     |4444-5158 | programador |
+---------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+* Junção Externa (Outer Join)
+
+Uma junção externa é uma consulta que não requer que os registros de uma tabela possuam registros equivalentes em outra. Este tipo de 
+junção se subdivide dependendo da tabela do qual admitiremos os registros que não possuem correspondência: a tabela da esquerda, a
+direita ou ambas.
+
+* Left Outer Join
+
+O resultado desta consulta sempre contém todos os registros da tabela esquerda (ou seja, a primeira tabela mencionada na consulta),
+mesmo quando não exista registros correspondentes na tabela direita.
+Desta forma, esta consulta retorna todos os valores da tabela esquerda com os valores da tabela direita correspondente, e quando não
+há correspondência retorna um valor NULL.
+
+SELECT * FROM clientes
+LEFT OUTER JOIN profissoes
+ON cliente.id_profissao = profissoes.id;
+
+--------------------------------------------------------------------------------------
+| id |     nome    | data_nascimento | telefone | id_profissao|   id   |    cargo    |
+--------------------------------------------------------------------------------------
+| 1  |João Pereira |  1981-06-15     |1234-5688 |      1      |   1    | programador |
+| 2  |Ricardo Perei|  1973-10-10     |2222-5679 |      2      |   2    | Analista    | 
+| 3  |Felipe Olivei|  1987-08-01     |3333-5368 |      3      |   3    | Suporte     |
+| 4  |Mário Perez  |  1991-02-05     |4444-5158 |      1      |   1    | programador |
+--------------------------------------------------------------------------------------
+
+* Right Outer Join
+
+O resultado desta consulta sempre contém todos os registros da tabela direita (ou seja, a segunda tabela mencionada na consulta),
+mesmo quando não exista registros correspondentes na tabela esquerda.
+Quando não há correspondência retorna um valor NULL.
+
+SELECT * FROM clientes
+RIGHT OUTER JOIN profissoes
+ON cliente.id_profissao = profissoes.id;
+
+--------------------------------------------------------------------------------------
+| id |     nome    | data_nascimento | telefone | id_profissao|   id   |    cargo    |
+--------------------------------------------------------------------------------------
+| 1  |João Pereira |  1981-06-15     |1234-5688 |      1      |   1    | programador |
+| 2  |Ricardo Perei|  1973-10-10     |2222-5679 |      2      |   2    | Analista    | 
+| 3  |Felipe Olivei|  1987-08-01     |3333-5368 |      3      |   3    | Suporte     |
+| 4  |Mário Perez  |  1991-02-05     |4444-5158 |      1      |   1    | programador |
+|NULL|  NULL       |  NULL           | NULL     |   NULL      |   4    | Gerente     |
+---------------------------------------------------------------------------------------
+
+* Full Outer Join
+
+Esta consulta apresenta todos os dados das tabelas à esquerda e à direita, mesmo que não possuam correspondência em outra tabela. A
+tabela combinada possuirá assim todos os registros de ambas as tabelas e apresentará os valores nulos para os registros sem correspon-
+dência.
+
+- SELECT * FROM clientes
+FULL OUTER JOIN profissoes
+ON cliente.id_profissao = profissoes.id;
+
+OBS: esta junção não funciona no MySQL mas pode ser simulada utilizando um LEFT JOIN e um RIGHT JOIN.
+
+SELECT * FROM clientes
+LEFT OUTER JOIN profissoes
+ON cliente.id_profissao = profissoes.id
+UNION
+SELECT * FROM clientes
+RIGHT OUTER JOIN profissoes
+ON cliente.id_profissao = profissoes.id;
+
+OBS: versão MySQL
+
+--------------------------------------------------------------------------------------
+| id |     nome    | data_nascimento | telefone | id_profissao|   id   |    cargo    |
+--------------------------------------------------------------------------------------
+| 1  |João Pereira |  1981-06-15     |1234-5688 |      1      |   1    | programador |
+| 4  |Mário Perez  |  1991-02-05     |4444-5158 |      1      |   1    | programador |
+| 2  |Ricardo Perei|  1973-10-10     |2222-5679 |      2      |   2    | Analista    | 
+| 3  |Felipe Olivei|  1987-08-01     |3333-5368 |      3      |   3    | Suporte     |
+|NULL|  NULL       |  NULL           | NULL     |   NULL      |   4    | Gerente     |
+--------------------------------------------------------------------------------------
+
+* CROSS JOIN
+
+Esta consulta é usada quando queremos juntar duas ou mais tabelas por cruzamento. Ou seja, para cada linha de uma tabela queremos todos
+os dados da outra tabela e vice-versa.
+
+SELECT c.id, c.nome, c.data_nascimento, c.telefone, p.cargo
+FROM clientes AS c
+CROSS JOIN profissoes AS p;
+
+OBS: o resultado desse SELECT é equivalente ao do produto cartesiano*
+
+* SELF JOIN
+
+Esta consulta é uma junção de uma tabela a si mesma.
+
+#consumidor
+---------------------------------------------------------------------------
+| id |     nome    |  contato  |   endereco  |  cidade |    cep   | pais  |
+---------------------------------------------------------------------------
+| 1  |João Pereira |Maria Nunes|Rua da Paz,47|São Paulo|123.456-78| Brasil|
+| 2  |Ana Trujillo |Fabio Silva|Rua da Fe,170|Goiania  |213.546-87| Brasil|
+| 3  |Leandro Veloz|Pedro Costa|Rua da Se,240|São Paulo|321.654-00| Brasil|
+---------------------------------------------------------------------------
+
+SELECT a.nome AS Consumidor1, b.nome AS Consumidro2, a.cidade
+FROM consumidro AS a
+INNER JOIN consumidor AS b
+ON a.id <> b.id
+AND a.cidade = b.cidade;
+
+No exemplo estamos realizando um Self Join onde os ids sejam diferentes mas a cidade seja igual
+
+---------------------------------------
+| Consumidor1 | Consumidor2 |  Cidade |
+---------------------------------------
+|João Pereira |Leandro Veloz|São Paulo|
+|Leandro Veloz|João Pereira |São Paulo|
+---------------------------------------
+
+* EQUI JOIN
+
+Uma junção Equi-Join é um tipo específico de junção baseada em comparador, que usa apenas comparações de igualdade na junção
+
+SELECt * FROM clientes JOIN profissoes
+ON clientes.id_profissao = profissoes.id;
+
+
+--------------------------------------------------------------------------------------
+| id |     nome    | data_nascimento | telefone | id_profissao|   id   |    cargo    |
+--------------------------------------------------------------------------------------
+| 1  |João Pereira |  1981-06-15     |1234-5688 |      1      |   1    | Programador |
+| 2  |Ricardo Perei|  1973-10-10     |2222-5679 |      2      |   2    | Analista    | 
+| 3  |Felipe Olivei|  1987-08-01     |3333-5368 |      3      |   3    | Suporte     |
+| 4  |Mário Perez  |  1991-02-05     |4444-5158 |      1      |   1    | Programador |
+--------------------------------------------------------------------------------------
+
+OBS: o resultado desse SELECT é equivalente ao do LEFT OUTER JOIN*
+
+* Natural Join
+
+Uma junção Natual-Join é um caso especial de Equi-Join. O resultado desta junção é o conjunto de todas as combinações que são iguais em
+seus nomes de atributos comuns.
+
+SELECT * FROM clientes NATURAL JOIN profissoes; 
+
+Neste caso, a junção natural acontece com os campos comuns* do relacionamento
+
+-----------------------------------------------------------------------------
+| id |     nome    | data_nascimento | telefone | id_profissao|    cargo    |
+-----------------------------------------------------------------------------
+| 1  |João Pereira |  1981-06-15     |1234-5688 |      1      | Programador |
+| 2  |Ricardo Perei|  1973-10-10     |2222-5679 |      2      | Analista    | 
+| 3  |Felipe Olivei|  1987-08-01     |3333-5368 |      3      | Suporte     |
+| 4  |Mário Perez  |  1991-02-05     |4444-5158 |      1      | Gerente     |
+-----------------------------------------------------------------------------
+
+OBS1: O único campo comum entre as duas tabelas é o campo 'id'. Desta forma, o resultado estará errado, já que João Pereira e Mário Perez
+tem a mesma profissão, mas no resultado, Mário Perez retornou como Gerente
+
+OBS2: Esta junção só 'funciona' bem se os campos chaves (onde acontece os relacionamentos) tiverem o mesmo nome em amba as tabelas.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
