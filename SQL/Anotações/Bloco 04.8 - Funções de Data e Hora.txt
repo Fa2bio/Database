@@ -1,0 +1,244 @@
+* CURDATE
+
+Função que retorna a data atual no formato aaaa-mm-dd
+
+- SELECT CURDATE() AS 'Data Atual'
+
+------------------
+| # | Data Atual |
+------------------
+| 1 | 2022-11-10 |
+------------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* CURTIME
+
+Função que retorna a hora atual no formato hh:mm:ss
+
+- SELECT CURTIME() AS 'Hora Atual'
+
+------------------
+| # | Hora Atual |
+------------------
+| 1 | 18:57:10   |
+------------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* CURRENT_TIME()
+
+- SELECT CURRENT_TIME() AS 'Hora Atual'
+
+------------------
+| # | Hora Atual |
+------------------
+| 1 | 18:57:15   |
+------------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* DATE_ADD(data, intervalo)
+
+Adiciona um intervalo à data. O intervalo pode ser uma data seguida de um horário. O intervalo a ser somado pode ser em dias, dias e
+horas e minutos, dias e segundos, minutos e segundos e etc
+
+- SELECT DATE_ADD(CURDATE(), INTERVAL 3 DAY) AS 'Data de Vencimento'
+
+--------------------------
+| # | Data de Vencimento |
+--------------------------
+| 1 | 2022-11-13         |
+--------------------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* DATE_SUB(data, intervalo)
+
+Subtrai um intervalo à data. O intervalo pode ser uma data seguida de um horário. O intervalo a ser subtraído pode ser em dias, dias e
+horas e minutos, dias e segundos, minutos e segundos e etc
+
+- SELECT DATE_SUB(CURDATE(), INTERVAL 3 DAY) AS 'Data de Matrícula'
+
+-------------------------
+| # | Data de Matrícula |
+-------------------------
+| 1 | 2022-11-07        |
+-------------------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* DATEDIFF(expressao1, expressao2)
+
+Retorna o valor da diferença entre expressao1, expressao2, podendo ambos serem uma data ou data e horário
+
+- SELECT DATEDIFF(CURDATE(), DATE_SUB(CURDATE(), INTERVAL 10 DAY)) AS 'Dias em Atraso'
+
+----------------------
+| # | Dias em Atraso |
+----------------------
+| 1 | 10             |
+----------------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* DATE_FORMAT(data, formato)
+
+Retorna a data atual formatada no padrão dd/mm/yyyy
+
+- SELECT DATE_FORMAT(CURDATE(), '%d/%m/%Y') AS 'Dias Formatada'
+
+----------------------
+| # | Dias Formatada |
+----------------------
+| 1 | 10/11/2022     |
+----------------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* DAYNAME(data)
+
+Retorna o dia da semana da data corrent.
+
+- SELECT DAYNAME(CURDATE()) AS 'Dias da Semana'
+
+----------------------
+| # | Dias da Semana |
+----------------------
+| 1 | Sunday         |
+----------------------
+
+OBS: para definir uma região, basta adicionar um SET antes do SELECT
+
+- SET lc_time_names = 'pt_BR';
+- SELECT DAYNAME(CURDATE()) AS 'Dias da Semana'
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* DAYOFMONTH(data)
+
+Retorna o dia do mês da data corrente.
+
+- SELECT DAYOFMONTH(CURDATE()) AS 'Dias do Mês'
+
+-------------------
+| # | Dias do mês |
+-------------------
+| 1 | 17          |
+-------------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* DAYOFWEEK(data)
+
+Retorna o dia da semana: 1 para domingo, 2 para segunda, etc
+
+- SELECT DAYOFWEEK(CURDATE()) AS 'Dia da Semana'
+
+-------------------
+| # | Dia da Semana|
+-------------------
+| 1 | 1            |
+-------------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* DAYOFYEAR(data)
+
+Retorna o dia do ano
+
+- SELECT DAYOFYEAR(CURDATE()) AS 'Dia do ano'
+
+-----------------
+| # | Dia do ano|
+-----------------
+| 1 | 310       |
+-----------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* FROM_DAYS(data)
+
+Retorna o dia do ano
+
+- SELECT FROM_DAYS(780500) AS 'Data Real'
+
+No comando acima estamos transformando a numeração informada em dias para uma data referente a esta numeração
+
+-----------------
+| # | Data Real|
+-----------------
+| 1 |2136-12-08|
+-----------------
+
+OBS: funciona somente com o calendário gregoriano
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* NOW
+
+Retorna a data e hora atual
+
+- SELECT NOW() AS 'Data/Hora Atual'
+
+-------------------------
+| # | Data/Hora Atual   |
+-------------------------
+| 1 |2022-11-10 19:40:15|
+-------------------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* CURRENT_TIMESTAMP()
+
+Retorna a data e hora atual
+
+- SELECT CURRENT_TIMESTAMP() AS 'Data/Hora Atual'
+
+-------------------------
+| # | Data/Hora Atual   |
+-------------------------
+| 1 |2022-11-10 19:40:15|
+-------------------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* TIME()
+
+Retorna a data e hora atual
+
+- SELECT TIME() AS 'Hora Atual'
+
+----------------
+| # |Hora Atual|
+----------------
+| 1 | 19:40:15 |
+----------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* SEC_TO_TIME(segundos)
+
+Retorna a conversão de segundos em horas, minutos e segundos
+
+- SELECT SEC_TO_TIME(2000) AS 'Tempo Total'
+
+----------------
+| # |Tempo Total|
+----------------
+| 1 | 00:33:20  |
+----------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+* TIME_TO_SEC(hora)
+
+Retorna a conversão de horas em segundos
+
+- TIME_TO_SEC('00:33:20') AS 'Tempo Total'
+
+----------------
+| # |Tempo Total|
+----------------
+| 1 | 2000      |
+----------------
