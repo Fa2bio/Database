@@ -1,0 +1,53 @@
+Uma subconsulta nada mais é do que uma instrução SELECT dentro de outro SELECT que retorna algumas colunas específicas que são usadas
+em algumas colunas específicas que são usadas em algumas funções como INSERT e UPDATE e DELETE por exemplo. Uma consulta SQL é chamada
+de consulta interna, enquanto a consulta que contém a subconsulta é chamada de consulta externa..
+
+---------------- Consulta Externa ----------------
+|               ------------------               |
+|               |Consulta Interna|               |
+|               ------------------               |          
+--------------------------------------------------
+
+Exemplo:
+
+SELECT nome, sobrenome
+FROM funcionarios
+WHERE id_escritorio IN (SELECT id FROM escritorios WHERE pais = 'Brasil');
+
+------------------------
+| # | Nome | Sobrenome |
+------------------------
+| 1 |Pedro | Souza     |
+------------------------
+
+Quando a consulta é executada, a subconsulta é executada primeiro e retorna um conjunto de resultados. Em seguida, esse conjunto de
+resultados é usado como uma entrada da consulta externa.
+
+Nem sempre precisamos fazer uma subquery para chegar a este resultado:
+
+SELECT nome, sobrenome FROM funcionarios, escritorios AS e WHERE id_escritorio = e.id AND e.pais = 'Brasil';
+
+------------------------
+| # | Nome | Sobrenome |
+------------------------
+| 1 |Pedro | Souza     |
+------------------------
+
+Veja que apenas um SELECT chegamos no mesmo resultado.
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+SELECT f.nome, f.sobrenome. e.pais, p.salario
+FROM pagamentos AS p, funcionarios AS f, escritorio AS e 
+WHERE f.id_escritorio = e.id
+AND f.id = p.id_funcionario
+AND salario = (SELECT MAX(salario) FROM pagamentos);
+
+------------------------------------------- 
+| # | Nome | Sobrenome | Pais   | Salario |
+-------------------------------------------
+| 1 |Raquel| Carvalho  | Brasil | 9458.56 |
+-------------------------------------------
+
+Neste exemplo, estamos efetuando uma junção de tabela por produto cartesiano, utilizando uma função agregada e uma subconsulta para ver
+quem tem o maior salário na empresa.
