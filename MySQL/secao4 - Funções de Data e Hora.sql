@@ -56,18 +56,18 @@ SELECT HOUR(TIME(CURRENT_TIMESTAMP())) AS Hora,
 	MINUTE(TIME(CURRENT_TIMESTAMP())) AS Minutos, 
     SECOND(TIME(CURRENT_TIMESTAMP())) AS Segundos;
 
-SELECT period_diff(201912, 201905) AS 'Meses Restantes';
+SELECT period_diff(202211, 202205) AS 'Meses Restantes';
 
 SELECT TIMEDIFF('12:35:34', '12:30:46') AS Diferença;
 
-SELECT QUARTER('2019-03-17') AS 'Trimestre do ano';
+SELECT QUARTER('2022-11-10') AS 'Trimestre do ano';
 
-SELECT WEEK('2019-03-17') AS 'Semana do Ano';
+SELECT WEEK('2022-11-10') AS 'Semana do Ano';
 
-SELECT WEEKDAY('2019-03-17') AS 'Dia da Semana';
+SELECT WEEKDAY('2022-11-10') AS 'Dia da Semana';
 
-SELECT YEAR('2019-03-17') AS 'Ano';
+SELECT YEAR('2022-11-10') AS 'Ano';
 
 SELECT MONTH(NOW()) AS 'Mês';
 
-SELECT DAY('2019-03-17') AS 'Dia';
+SELECT DAY('2022-11-10') AS 'Dia';
